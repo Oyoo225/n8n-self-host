@@ -10,7 +10,7 @@ version: '3'
 #     ports:
 #       - "5678:5678"
 #     volumes:
-#       - ./workflows:/home/node/.n8n/workflows
+#       - ./workflows:/home/node/.n8n/workflows # This line correctly mounts your local workflows folder
 #     environment:
 #       - GENERIC_TIMEZONE=Asia/Bangkok
 #       - N8N_HOST=localhost
