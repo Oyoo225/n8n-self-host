@@ -7,16 +7,16 @@ services:
     repo: https://github.com/Oyoo225/n8n-self-host
     branch: main
     
-    # Docker context is the repository root
+   
     dockerContext: .
     dockerfilePath: ./Dockerfile
     
     autoDeploy: true
     
-    # ADD THIS LINE: Explicitly tell Render how to start the n8n server
+    
     startCommand: n8n start 
 
-    # Environment variables for your n8n instance on Render
+    
     envVars:
       - key: GENERIC_TIMEZONE
         value: Asia/Bangkok
@@ -27,20 +27,10 @@ services:
       - key: N8N_PROTOCOL
         value: https
       
-      # Basic Authentication for n8n UI (Highly Recommended for Security)
-      # If your repo is public, set these securely in Render dashboard's Environment section.
+      
       - key: N8N_BASIC_AUTH_ACTIVE
         value: "true"
       - key: N8N_BASIC_AUTH_USER
-        sync: false # Set to false to prevent this from being synced if managed as a secret in Render UI
-        # value: "your_secure_username" # REPLACE with a strong username
+        sync: false
       - key: N8N_BASIC_AUTH_PASSWORD
-        sync: false # Set to false to prevent this from being synced if managed as a secret in Render UI
-        # value: "your_strong_password" # REPLACE with a strong password
-
-      # Google Gemini API Key (if referenced in n8n credentials as an env var)
-      # Replace 'YOUR_GEMINI_API_KEY' with your actual API key
-      # Also set sync: false if this is a secret not to be exposed
-      # - key: GOOGLE_GEMINI_API_KEY 
-      #   sync: false
-      #   value: "YOUR_GEMINI_API_KEY"
+        sync: false 
