@@ -1,9 +1,50 @@
+# render.yaml
+
 services:
   - type: web
-    name: n8n-self-host
-    env: docker
-    repo: https://github.com/Oyoo225/n8n-self-host
-    branch: main
-    dockerContext: ./n8n-self-host-starter
-    dockerfilePath: ./n8n-self-host-starter/Dockerfile
-    autoDeploy: true
+    name: n8n-self-host # The name of your Render service
+    env: docker          # Specifies that this service uses Docker
+    repo: https://github.com/Oyoo225/n8n-self-host # Your GitHub repository URL
+    branch: main         # The branch to deploy from
+    
+    # Docker context and Dockerfile path relative to the repository root.
+    # '.' means the root of your repository is the build context.
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    
+    autoDeploy: true     # Automatically redeploy on new commits to the specified branch
+
+    # Environment variables for your n8n instance on Render
+    envVars:
+      - key: GENERIC_TIMEZONE
+        value: Asia/Bangkok
+      - key: N8N_HOST
+        # Use the actual hostname Render provides, e.g., 'n8n-self-host-0xgw.onrender.com'
+        # This value should match the domain assigned by Render.
+        value: n8n-self-host-0xgw.onrender.com 
+      - key: N8N_PORT
+        value: 5678
+      - key: N8N_PROTOCOL
+        value: https
+      
+      # Basic Authentication for n8n UI (Highly Recommended for Security)
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      
+      # SECURE YOUR CREDENTIALS:
+      # It is highly recommended to manage these sensitive values via Render Secret Groups
+      # or by setting them directly in the Render dashboard's Environment section.
+      # If your repo is public, NEVER hardcode these values directly in render.yaml.
+      - key: N8N_BASIC_AUTH_USER
+        sync: false # Set to false to prevent this from being synced if managed as a secret in Render UI
+        # value: your_secure_n8n_username # REMOVE THIS LINE IF USING SECRET GROUPS / RENDER UI
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: false # Set to false to prevent this from being synced if managed as a secret in Render UI
+        # value: your_strong_n8n_password # REMOVE THIS LINE IF USING SECRET GROUPS / RENDER UI
+
+      # Google Gemini API Key (if referenced in n8n credentials as an env var)
+      # Replace 'YOUR_GEMINI_API_KEY' with your actual API key
+      # Also set sync: false if this is a secret not to be exposed
+      # - key: GOOGLE_GEMINI_API_KEY
+      #   sync: false
+      #   value: YOUR_GEMINI_API_KEY
