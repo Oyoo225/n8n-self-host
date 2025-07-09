@@ -14,7 +14,7 @@ services:
     autoDeploy: true
     
     
-    startCommand: n8n start 
+    startCommand: /usr/local/bin/n8n start
 
     
     envVars:
